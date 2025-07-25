@@ -1,5 +1,5 @@
 def main():
-    print("Hello from aspm-wrapper!")
+    print("Hello from aspmwarp!")
 
 
 if __name__ == "__main__":
