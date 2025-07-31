@@ -44,4 +44,3 @@ class DefectDojo:
         create_url = urljoin(self.url, self.PRODUCTS_API)
         resp = self.session.post(url=create_url, json=data)
         return resp.status_code
-
