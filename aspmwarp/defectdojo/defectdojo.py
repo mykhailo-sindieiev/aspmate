@@ -25,7 +25,7 @@ class DefectDojo:
         Create a new product in the DefectDojo
 
         :param name: Name of the product to create
-        :param description:
+        :param description: Description of the product to create
         :param prod_type: Product type. Should be the integer and should match the product type ID
         :param kwargs: Additional arguments that will be merged to the payload to DefectDojo
         :return: Status code, answer in json format
