@@ -6,6 +6,6 @@ dd_key = os.getenv("DEFECTDOJO_API_KEY")
 
 dd_client = DefectDojo(url=dd_url, key=dd_key)
 
-code = dd_client.create_product(name="test", description="test", prod_type=1, additional_fields={"tags": ['test'],})
+code, json = dd_client.create_product(name="test", description="test", prod_type=1, additional_fields={"tags": ['test'],})
 
-print(code)
+print(code, json)
