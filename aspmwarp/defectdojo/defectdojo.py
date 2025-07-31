@@ -19,12 +19,6 @@ class DefectDojo:
     def close(self):
         self.session.close()
 
-    @staticmethod
-    def _get_kwargs(key, dictionary):
-        if key in dictionary:
-            return dictionary[key]
-        else:
-            return None
 
     def create_product(self, name: str, description: str, prod_type: int, **kwargs) -> tuple[int, Dict[str, Any]]:
         """
