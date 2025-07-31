@@ -1,3 +1,5 @@
+import json
+
 import requests
 from urllib.parse import urljoin
 
@@ -7,25 +9,39 @@ class DefectDojo:
         self.key = key
         self.headers = {'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + key}
+                        'Authorization': 'Token ' + self.key}
         self.session = requests.Session()
         self.session.headers.update(self.headers)
 
         # API endpoints
-        self.CREATE_PRODUCT_API = '/'
-        self.DELETE_PRODUCT_API = '/products/'
+        self.PRODUCTS_API = '/api/v2/products/'
 
 
     def close(self):
         self.session.close()
 
-    def create_product(self, name: str) -> int:
+    @staticmethod
+    def _get_kwargs(key, dictionary):
+        if key in dictionary:
+            return dictionary[key]
+        else:
+            return None
+
+    def create_product(self, name: str, description: str, prod_type: int, **kwargs) -> int:
         """
         Create a new product in the DefectDojo
 
-        :param name: name of the product to create
-        :return: status code, answer in json format
+        :param name: Name of the product to create
+        :param description:
+        :param prod_type: Product type. Should be the integer and should match the product type ID
+        :return: Status code, answer in json format
         """
-        create_url = urljoin(self.url, self.CREATE_PRODUCT_API)
-        resp = self.session.post(url=create_url, json={'name': name})
+
+        data = {"name": name, "prod_type": prod_type, "description": description}
+        payload = data | kwargs.get("additional_fields")
+
+        print(payload)
+        create_url = urljoin(self.url, self.PRODUCTS_API)
+        resp = self.session.post(url=create_url, json=data)
+        return resp.status_code
 
